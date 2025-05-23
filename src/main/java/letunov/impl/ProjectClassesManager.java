@@ -30,6 +30,7 @@ public class ProjectClassesManager {
     }
 
     public ClassLoader getProjectClassLoader(MavenProject project) {
+        log.debug("Build output directory: {}", project.getBuild().getOutputDirectory());
         var outputDirectory = new File(project.getBuild().getOutputDirectory());
         var projectUrl = getUrl(outputDirectory.toPath());
 
@@ -66,6 +67,7 @@ public class ProjectClassesManager {
         var path = Paths.get(m2Repo, dependency.getGroupId().replace(".", "/"),
             dependency.getArtifactId(), dependency.getVersion(),
             dependency.getArtifactId() + "-" + dependency.getVersion() + ".jar");
+        log.debug("Dependency path created: {}", path);
         return getUrl(path);
     }
 

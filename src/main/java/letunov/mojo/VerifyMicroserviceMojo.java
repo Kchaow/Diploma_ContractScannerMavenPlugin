@@ -18,10 +18,12 @@ public class VerifyMicroserviceMojo extends AbstractMojo {
     public void execute() {
         var delegate = new RetrieveMicroserviceContractsInfoDelegate();
         var m2Repo = System.getProperty("M2_REPO");
+        log.debug("m2Repo received: {}", m2Repo);
         var microserviceContractsInfo = delegate.execute(m2Repo, project);
         log.info("Microservice contracts information retrieved: {}", microserviceContractsInfo);
 
         var changeGraphId = System.getProperty("changeGraphId");
+        log.debug("changeGraphId received: {}", changeGraphId);
         var microserviceIntegrityServerBaseURL = System.getProperty("microserviceIntegrityServerURL");
         var microserviceIntegrityServerClient = new MicroserviceIntegrityServerClient(microserviceIntegrityServerBaseURL);
         microserviceIntegrityServerClient.verifyMicroservice(microserviceContractsInfo, changeGraphId);
